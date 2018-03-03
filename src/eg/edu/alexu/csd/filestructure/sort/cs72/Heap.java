@@ -57,6 +57,7 @@ public class Heap implements IHeap {
         }
 
     }
+
     @SuppressWarnings("unchecked")
     private void swap(INode node1, INode node2) {
 
@@ -68,8 +69,8 @@ public class Heap implements IHeap {
 
     @Override
     public Comparable extract() {
-        if(heapArray.size() < 1){
-            return null ;
+        if (heapArray.size() < 1) {
+            return null;
         }
         Comparable value = heapArray.get(0).getValue();
         Node last = heapArray.get(this.size() - 1);
@@ -88,16 +89,16 @@ public class Heap implements IHeap {
 
     @Override
     public void insert(Comparable element) {
-        if(heapArray.size() < 1) {
+        if (heapArray.size() < 1) {
             Node newNode = new Node(element);
             heapArray.add(newNode);
             return;
         }
-            int parentIndex = (heapArray.size() - 1) / 2;
-            Node newNode = new Node(/* heapArray.get(parentIndex), */ element);
-            newNode.setParentChild(heapArray.get(parentIndex));
-            heapArray.add(newNode);
-            UpHeapify(newNode);
+        int parentIndex = (heapArray.size() - 1) / 2;
+        Node newNode = new Node(/* heapArray.get(parentIndex), */ element);
+        newNode.setParentChild(heapArray.get(parentIndex));
+        heapArray.add(newNode);
+        UpHeapify(newNode);
 
 
     }
@@ -165,16 +166,17 @@ public class Heap implements IHeap {
         childParentRelations();
 
     }
+
     private void childParentRelations() {
-        for(int i = 0; i < this.size(); i++) {
-            int j = 2*i+1;
-            if(j >= this.size()) {
+        for (int i = 0; i < this.size(); i++) {
+            int j = 2 * i + 1;
+            if (j >= this.size()) {
                 break;
             }
             Node n = heapArray.get(j);
             n.setParentChild(heapArray.get(i));
-            j = 2*i+2;
-            if(j >= this.size()) {
+            j = 2 * i + 2;
+            if (j >= this.size()) {
                 break;
             }
             n = heapArray.get(j);
@@ -182,7 +184,6 @@ public class Heap implements IHeap {
         }
 
     }
-
 
 
 }

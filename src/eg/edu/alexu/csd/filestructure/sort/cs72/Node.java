@@ -75,6 +75,7 @@ public class Node implements INode {
 
         }
     }
+
     public void removeChild(Node last) {
         if (this.getLeftChild() != null) {
             if (this.getLeftChild().equals(last)) {
