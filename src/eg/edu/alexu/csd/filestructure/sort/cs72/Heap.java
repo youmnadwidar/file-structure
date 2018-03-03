@@ -57,7 +57,7 @@ public class Heap implements IHeap {
         }
 
     }
-
+    @SuppressWarnings("unchecked")
     private void swap(INode node1, INode node2) {
 
         Comparable value = node1.getValue();
@@ -74,6 +74,10 @@ public class Heap implements IHeap {
         Comparable value = heapArray.get(0).getValue();
         Node last = heapArray.get(this.size() - 1);
         Comparable valueR = last.getValue();
+        if (this.size() == 1) {
+            heapArray.remove(0);
+            return value;
+        }
         ((Node) last.getParent()).removeChild(last);
         heapArray.remove(last);
         heapArray.get(0).setValue(valueR);
@@ -85,6 +89,8 @@ public class Heap implements IHeap {
     @Override
     public void insert(Comparable element) {
         if(heapArray.size() < 1) {
+            Node newNode = new Node(element);
+            heapArray.add(newNode);
             return;
         }
             int parentIndex = (heapArray.size() - 1) / 2;
@@ -101,6 +107,7 @@ public class Heap implements IHeap {
             return;
         }
         INode parent = newNode.getParent();
+        @SuppressWarnings("unchecked")
         int compare = newNode.getValue().compareTo(parent.getValue());
         if (compare > 0) {
             swap(parent, newNode);
