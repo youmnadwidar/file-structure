@@ -162,7 +162,27 @@ public class Heap implements IHeap {
             heapArray.get(0).setValue(tempV);
             makeMaxHeap(i);
         }
+        childParentRelations();
 
     }
+    private void childParentRelations() {
+        for(int i = 0; i < this.size(); i++) {
+            int j = 2*i+1;
+            if(j >= this.size()) {
+                break;
+            }
+            Node n = heapArray.get(j);
+            n.setParentChild(heapArray.get(i));
+            j = 2*i+2;
+            if(j >= this.size()) {
+                break;
+            }
+            n = heapArray.get(j);
+            n.setParentChild(heapArray.get(i));
+        }
+
+    }
+
+
 
 }
