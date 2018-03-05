@@ -148,7 +148,7 @@ public class Heap implements IHeap {
     }
     private void makeMaxHeap(int size) {
         for (int i = (size ) / 2; i >= 0; i--) {
-            heapify(heapArray.get(i));
+            heapify((Node)heapArray.toArray()[i]);
         }
 
     }
