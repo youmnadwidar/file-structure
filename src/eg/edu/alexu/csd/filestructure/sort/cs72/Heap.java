@@ -129,7 +129,7 @@ public class Heap implements IHeap {
         i++;
         while (i < list.size()) {
             n = new Node(list.get(i));
-          //  n.setParentChild(heapArray.get((i - 1) / 2));
+            n.setParentChild(heapArray.get((i - 1) / 2));
             heapArray.add(n);
             i++;
         }
@@ -138,7 +138,7 @@ public class Heap implements IHeap {
     }
 
     private void makeMaxHeap(int size) {
-        for (int i = (size - 1) / 2; i >= 0; i--) {
+        for (int i = (size ) / 2; i >= 0; i--) {
             heapify(heapArray.get(i));
         }
 
