@@ -21,15 +21,7 @@ public class Node implements INode {
     }
 
     public void setParent(INode p) {
-        Node grand = (Node) p.getParent();
-        this.parent = grand;
-        if (grand.getLeftChild() != null) {
-            if (grand.getLeftChild().equals(p)) {
-                grand.setLeft(this);
-            } else {
-                grand.setRight(this);
-            }
-        }
+       this.parent = p;
     }
 
     public void setLeft(INode left) {
