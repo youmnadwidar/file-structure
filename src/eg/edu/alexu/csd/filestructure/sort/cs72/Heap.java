@@ -16,7 +16,7 @@ public class Heap implements IHeap {
 	}
 
 	@Override
-	public INode getRoot() {
+	public final INode getRoot() {
 		if (this.size() > 0) {
 			return heapArray.get(0);
 		}
@@ -25,12 +25,12 @@ public class Heap implements IHeap {
 	}
 
 	@Override
-	public int size() {
+	public final int size() {
 		return heapArray.size();
 	}
 
 	@Override
-	public void heapify(INode node) {
+	public final void heapify(final INode node) {
 
 		INode leftChild = node.getLeftChild();
 		INode rightChild = node.getRightChild();
@@ -40,7 +40,8 @@ public class Heap implements IHeap {
 		}
 		int comapre;
 		if (rightChild != null) {
-			comapre = leftChild.getValue().compareTo(rightChild.getValue());
+			comapre = leftChild.getValue()
+					.compareTo(rightChild.getValue());
 			if (comapre < 0) {
 				maxChild = rightChild;
 			} else {
@@ -59,7 +60,7 @@ public class Heap implements IHeap {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void swap(INode node1, INode node2) {
+	private void swap(final INode node1, final INode node2) {
 
 		Comparable value = node1.getValue();
 		node1.setValue(node2.getValue());
@@ -68,7 +69,7 @@ public class Heap implements IHeap {
 	}
 
 	@Override
-	public Comparable extract() {
+	public final Comparable extract() {
 		if (heapArray.size() < 1) {
 			return null;
 		}
@@ -88,7 +89,7 @@ public class Heap implements IHeap {
 	}
 
 	@Override
-	public void insert(Comparable element) {
+	public final void insert(final Comparable element) {
 		if (heapArray.size() < 1) {
 			Node newNode = new Node(element);
 			heapArray.add(newNode);
@@ -102,7 +103,7 @@ public class Heap implements IHeap {
 
 	}
 
-	private void UpHeapify(INode newNode) {
+	private void UpHeapify(final INode newNode) {
 		if (this.getRoot().equals(newNode)) {
 			return;
 		}
@@ -117,7 +118,7 @@ public class Heap implements IHeap {
 	}
 
 	@Override
-	public void build(Collection unordered) {
+	public final void build(final Collection unordered) {
 		@SuppressWarnings("unchecked")
 		List list = new ArrayList(unordered);
 
@@ -137,7 +138,7 @@ public class Heap implements IHeap {
 		makeMaxHeap(heapArray.size());
 	}
 
-	private void makeMaxHeap(int size) {
+	private void makeMaxHeap(final int size) {
 		for (int i = (size - 1) / 2; i >= 0; i--) {
 			heapify(heapArray.get(i));
 		}

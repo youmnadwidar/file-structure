@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Sort<T extends Comparable<T>> implements ISort<T> {
 
 	@Override
-	public IHeap heapSort(ArrayList<T> unordered) {
+	public final IHeap heapSort(final ArrayList<T> unordered) {
 		Heap heap = new Heap();
 		heap.build(unordered);
 		if (heap.size() == 1) {
@@ -22,7 +22,7 @@ public class Sort<T extends Comparable<T>> implements ISort<T> {
 	}
 
 	@Override
-	public void sortSlow(ArrayList<T> unordered) {
+	public final void sortSlow(final ArrayList<T> unordered) {
 		for (int i = 0; i < unordered.size() - 1; i++) {
 			for (int j = 0; j < unordered.size() - 1 - i; j++) {
 				if (unordered.get(j).compareTo(unordered.get(j + 1)) > 0) {
@@ -35,11 +35,11 @@ public class Sort<T extends Comparable<T>> implements ISort<T> {
 	}
 
 	@Override
-	public void sortFast(ArrayList<T> unordered) {
+	public final void sortFast(final ArrayList<T> unordered) {
 		mergeSort(unordered, 0, unordered.size() - 1);
 	}
 
-	private ArrayList<T> mergeSort(ArrayList<T> list, int left, int right) {
+	private ArrayList<T> mergeSort(ArrayList<T> list, final int left, final int right) {
 		int mid = ((right - left) / 2) + left;
 		if (right - (mid) > 1) {
 			list = mergeSort(list, mid + 1, right);
@@ -52,7 +52,8 @@ public class Sort<T extends Comparable<T>> implements ISort<T> {
 
 	}
 
-	private ArrayList<T> sortingTwoOrderedLists(ArrayList<T> list, int left, int right, int mid) {
+	private ArrayList<T> sortingTwoOrderedLists(final ArrayList<T> list
+	, final int left, final int right, final int mid) {
 		ArrayList<T> temp = new ArrayList<>();
 		int i = left, j = mid + 1;
 		while (i <= mid && j <= right) {

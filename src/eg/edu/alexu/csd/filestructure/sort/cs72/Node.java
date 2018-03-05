@@ -7,57 +7,76 @@ import eg.edu.alexu.csd.filestructure.sort.INode;
  */
 public class Node implements INode {
 
+	/**
+	 * . left child.
+	 */
 	private INode leftChild;
-
+	/**
+	 * . right child.
+	 */
 	private INode rightChild;
+	/**
+	 * . parent .
+	 */
 	private INode parent;
+	/**
+	 * . value.
+	 */
 	private Comparable value;
 
-	public Node(Object element) {
+	/**
+	 * @param element
+	 *            value of the node.
+	 */
+	public Node(final Object element) {
 		this.parent = null;
 		this.value = (Comparable) element;
 		leftChild = null;
 		rightChild = null;
 	}
 
-	public void setParent(INode p) {
+	public final void setParent(final INode p) {
 		this.parent = p;
 	}
 
-	public void setLeft(INode left) {
+	public final void setLeft(final INode left) {
 		this.leftChild = left;
 	}
 
-	public void setRight(INode right) {
+	public final void setRight(final INode right) {
 		this.rightChild = right;
 	}
 
 	@Override
-	public INode getLeftChild() {
+	public final INode getLeftChild() {
 		return leftChild;
 	}
 
 	@Override
-	public INode getRightChild() {
+	public final INode getRightChild() {
 		return rightChild;
 	}
 
 	@Override
-	public INode getParent() {
+	public final INode getParent() {
 		return parent;
 	}
 
 	@Override
-	public Comparable getValue() {
+	public final Comparable getValue() {
 		return value;
 	}
 
 	@Override
-	public void setValue(Comparable value) {
+	public final void setValue(final Comparable value) {
 		this.value = value;
 	}
 
-	public void setParentChild(INode iNode) {
+	/**
+	 * @param iNode.
+	 *            .
+	 */
+	public final void setParentChild(final INode iNode) {
 
 		this.parent = iNode;
 		if (iNode.getLeftChild() == (null)) {
@@ -68,7 +87,11 @@ public class Node implements INode {
 		}
 	}
 
-	public void removeChild(Node last) {
+	/**
+	 * @param last.
+	 *            input.
+	 */
+	public final void removeChild(final Node last) {
 		if (this.getLeftChild() != null) {
 			if (this.getLeftChild().equals(last)) {
 				this.setLeft(null);
