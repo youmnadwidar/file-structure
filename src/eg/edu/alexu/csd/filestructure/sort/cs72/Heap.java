@@ -119,39 +119,32 @@ public class Heap implements IHeap {
 
     @Override
     public void build(Collection unordered) {
-        heapArray.clear();
-        if(unordered.size() < 1){
+        @SuppressWarnings("unchecked")
+        List list = new ArrayList(unordered);
+
+        if (list.size() < 1) {
             return;
         }
-        for (int i = 0; i < unordered.size(); i++) {
-            Node temp = new Node((Comparable) unordered.toArray()[i]);
-            heapArray.add(temp);
-        }
-
-        for (int i = 0; i <heapArray.size() ; i++) {
-
-            int parentIndex = (i-1)/2;
-            if(i!= 0 && parentIndex >=0 && parentIndex< heapArray.size()){
-                Node son = (Node) heapArray.toArray()[i];
-                Node parent = (Node) heapArray.toArray()[parentIndex];
-                son.setParent(parent);
-
-                if(parent.getLeftChild() == null){
-                    parent.setLeft(son);
-                }else {
-                    parent.setRight(son);
-                }
-            }
+        int i = 0;
+        Node n = new Node(list.get(i));
+        heapArray.add(n);
+        i++;
+        while (i < list.size()) {
+            n = new Node(list.get(i));
+            n.setParentChild(heapArray.get((i - 1) / 2));
+            heapArray.add(n);
+            i++;
         }
         makeMaxHeap(heapArray.size());
-
     }
+
     private void makeMaxHeap(int size) {
-        for (int i = (size ) / 2; i >= 0; i--) {
-            heapify((Node)heapArray.toArray()[i]);
+        for (int i = (size - 1) / 2; i >= 0; i--) {
+            heapify(heapArray.get(i));
         }
 
     }
+
 
   /*
    * public void printHeap() { for (int i = 0; i < heapArray.size(); i++) { System.out
