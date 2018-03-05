@@ -120,6 +120,9 @@ public class Heap implements IHeap {
     @Override
     public void build(Collection unordered) {
         heapArray.clear();
+        if(unordered.size() < 1){
+            return;
+        }
         for (int i = 0; i < unordered.size(); i++) {
             Node temp = new Node((Comparable) unordered.toArray()[i]);
             heapArray.add(temp);
