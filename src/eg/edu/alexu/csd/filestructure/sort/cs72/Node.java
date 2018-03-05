@@ -7,75 +7,75 @@ import eg.edu.alexu.csd.filestructure.sort.INode;
  */
 public class Node implements INode {
 
-    private INode leftChild;
+	private INode leftChild;
 
-    private INode rightChild;
-    private INode parent;
-    private Comparable value;
+	private INode rightChild;
+	private INode parent;
+	private Comparable value;
 
-    public Node(Object element) {
-        this.parent = null;
-        this.value = (Comparable) element;
-        leftChild = null;
-        rightChild = null;
-    }
+	public Node(Object element) {
+		this.parent = null;
+		this.value = (Comparable) element;
+		leftChild = null;
+		rightChild = null;
+	}
 
-    public void setParent(INode p) {
-       this.parent = p;
-    }
+	public void setParent(INode p) {
+		this.parent = p;
+	}
 
-    public void setLeft(INode left) {
-        this.leftChild = left;
-    }
+	public void setLeft(INode left) {
+		this.leftChild = left;
+	}
 
-    public void setRight(INode right) {
-        this.rightChild = right;
-    }
+	public void setRight(INode right) {
+		this.rightChild = right;
+	}
 
-    @Override
-    public INode getLeftChild() {
-        return leftChild;
-    }
+	@Override
+	public INode getLeftChild() {
+		return leftChild;
+	}
 
-    @Override
-    public INode getRightChild() {
-        return rightChild;
-    }
+	@Override
+	public INode getRightChild() {
+		return rightChild;
+	}
 
-    @Override
-    public INode getParent() {
-        return parent;
-    }
+	@Override
+	public INode getParent() {
+		return parent;
+	}
 
-    @Override
-    public Comparable getValue() {
-        return value;
-    }
+	@Override
+	public Comparable getValue() {
+		return value;
+	}
 
-    @Override
-    public void setValue(Comparable value) {
-        this.value = value;
-    }
+	@Override
+	public void setValue(Comparable value) {
+		this.value = value;
+	}
 
-    public void setParentChild(INode iNode) {
+	public void setParentChild(INode iNode) {
 
-        this.parent = iNode;
-        if (iNode.getLeftChild() == (null)) {
-            ((Node) iNode).setLeft(this);
-        } else {
-            ((Node) iNode).setRight(this);
+		this.parent = iNode;
+		if (iNode.getLeftChild() == (null)) {
+			((Node) iNode).setLeft(this);
+		} else {
+			((Node) iNode).setRight(this);
 
-        }
-    }
+		}
+	}
 
-    public void removeChild(Node last) {
-        if (this.getLeftChild() != null) {
-            if (this.getLeftChild().equals(last)) {
-                this.setLeft(null);
-            } else {
-                this.setRight(null);
-            }
-        }
-    }
+	public void removeChild(Node last) {
+		if (this.getLeftChild() != null) {
+			if (this.getLeftChild().equals(last)) {
+				this.setLeft(null);
+			} else {
+				this.setRight(null);
+			}
+		}
+	}
 
 }
