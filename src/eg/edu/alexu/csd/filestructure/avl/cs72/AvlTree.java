@@ -141,9 +141,9 @@ public class AvlTree implements IAVLTree {
     @Override
     public int height() {
         if(numberOfNodes == 0){
-            return  -1 ;
+            return  0 ;
         }
-        return (int) (Math.log(numberOfNodes) / Math.log(2));
+        return (int) (Math.log(numberOfNodes) / Math.log(2)) +1 ;
     }
 
     @Override
