@@ -99,6 +99,7 @@ public class AvlTree implements IAVLTree {
             }else {
                 swap(node);
             }
+            numberOfNodes -- ;
             return true;
 
         }
