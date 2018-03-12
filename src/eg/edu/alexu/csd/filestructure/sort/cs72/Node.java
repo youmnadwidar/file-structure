@@ -17,8 +17,8 @@ public class Node implements INode {
 	private INode rightChild;
 	/**
 	 * . parent .
-	 */
-	private INode parent;
+	 */	private INode parent;
+
 	/**
 	 * . value.
 	 */
@@ -28,16 +28,14 @@ public class Node implements INode {
 	 * @param element
 	 *            value of the node.
 	 */
-	public Node(final Object element) {
+	public Node( Object element) {
 		this.parent = null;
-		this.value = (Comparable) element;
+		this.value = (java.lang.Comparable) element;
 		leftChild = null;
 		rightChild = null;
 	}
 
-	public final void setParent(final INode p) {
-		this.parent = p;
-	}
+
 
 	public final void setLeft(final INode left) {
 		this.leftChild = left;

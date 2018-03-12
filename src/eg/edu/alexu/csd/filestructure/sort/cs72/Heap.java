@@ -145,17 +145,12 @@ public class Heap implements IHeap {
 
 	}
 
-	/*
-	 * public void printHeap() { for (int i = 0; i < heapArray.size(); i++) {
-	 * System.out .println(heapArray.get(i).getValue() + "," +
-	 * heapArray.get(i).getLeftChild().getValue() + "," +
-	 * heapArray.get(i).getRightChild().getValue() ); }
-	 * System.out.println("-------------------");
-	 *
-	 * }
-	 */
+
+
+
 
 	public void sort() {
+		long startTime = System.nanoTime();
 		int size = this.size();
 		for (int i = size - 1; i >= 1; i--) {
 			Node last = heapArray.get(i);
@@ -167,7 +162,9 @@ public class Heap implements IHeap {
 			makeMaxHeap(i);
 		}
 		childParentRelations();
-
+		long endTime   = System.nanoTime();
+		long totalTime = (endTime - startTime);
+		System.out.println(totalTime);
 	}
 
 	private void childParentRelations() {

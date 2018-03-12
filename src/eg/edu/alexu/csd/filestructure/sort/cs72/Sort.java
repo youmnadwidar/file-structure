@@ -23,6 +23,8 @@ public class Sort<T extends Comparable<T>> implements ISort<T> {
 
 	@Override
 	public final void sortSlow(final ArrayList<T> unordered) {
+		long startTime = System.nanoTime();
+
 		for (int i = 0; i < unordered.size() - 1; i++) {
 			for (int j = 0; j < unordered.size() - 1 - i; j++) {
 				if (unordered.get(j).compareTo(unordered.get(j + 1)) > 0) {
@@ -32,12 +34,23 @@ public class Sort<T extends Comparable<T>> implements ISort<T> {
 				}
 			}
 		}
+		long endTime   = System.nanoTime();
+		long totalTime = (endTime - startTime);
+		System.out.println(totalTime);
 	}
 
+
 	@Override
-	public final void sortFast(final ArrayList<T> unordered) {
+	public final void sortFast(final ArrayList<T> unordered)
+	{
+		long startTime = System.nanoTime();
+
 		mergeSort(unordered, 0, unordered.size() - 1);
+		long endTime   = System.nanoTime();
+		long totalTime = (endTime - startTime);
+		System.out.println(totalTime);
 	}
+
 
 	private ArrayList<T> mergeSort(ArrayList<T> list, final int left, final int right) {
 		int mid = ((right - left) / 2) + left;
