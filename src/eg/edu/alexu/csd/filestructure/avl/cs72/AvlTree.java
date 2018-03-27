@@ -18,9 +18,7 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
         if(root == null){
             root = new Node<T>();
             root.setValue(key);
-
-
-        }
+        }else
         InsertNode(key ,(Node<T>)root);
 
         numberOfNodes++;
