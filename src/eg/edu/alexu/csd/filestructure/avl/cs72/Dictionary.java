@@ -51,11 +51,9 @@ public class Dictionary implements IDictionary {
 
     @Override
     public boolean delete(String word) {
-        if(this.exists(word)) {
-            tree.delete(word);
-            return true;
-        }
-        return false;
+
+           return  tree.delete(word);
+
     }
 
     @Override
