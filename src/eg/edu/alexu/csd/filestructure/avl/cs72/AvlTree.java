@@ -20,9 +20,6 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
             root.setValue(key);
 
 
-        }else
-        if(this.search(key)) {
-        	return;
         }
         InsertNode(key ,(Node<T>)root);
 
