@@ -57,7 +57,7 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
 
 
         int compare = key.compareTo(startNode.getValue());
-        if( compare < 0){
+        if( compare <= 0){
             if(startNode.getLeftChild() == null){
                 Node<T> newNode = new Node<T>();
                 newNode.setValue(key);
@@ -68,7 +68,7 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
 				InsertNode(key , (Node<T>) startNode.getLeftChild());
 			}
 
-        }else if(compare >= 0 ){
+        }else if(compare > 0 ){
             if(startNode.getRightChild() == null){
                 Node<T> newNode = new Node<T>();
                 newNode.setValue(key);
