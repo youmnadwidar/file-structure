@@ -23,7 +23,7 @@ public class Dictionary implements IDictionary {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             while ((line = bufferedReader.readLine()) != null) {
-                tree.insert(line);
+                this.insert(line);
             }
 
             bufferedReader.close();
@@ -37,7 +37,7 @@ public class Dictionary implements IDictionary {
 
     @Override
     public boolean insert(String word) {
-        if(this.exists(word)) {
+        if(tree.search(word)) {
             return false;
         }
         tree.insert(word);
