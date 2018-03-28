@@ -6,58 +6,42 @@ import eg.edu.alexu.csd.filestructure.avl.INode;
 /**
  * Created by HP on 3/12/2018.
  */
-/**
- * @author HP.
- *
- * @param <T> in .
- */
 public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
 
-     /**
-      * * Root of the avl tree.
-      */
-    private INode<T> root;
-    /**
-     * number of nodes in an avl tree.
-     */
-    private int numberOfNodes;
+    private INode<T> root ;
+    private int numberOfNodes ;
 
 
 
-    /**
-     * Insert the given value using the key
-     * @param key the value to be inserted in the tree
-     */
     @Override
-    public final void insert(final T key) {
-        if (root == null) {
+    public void insert(T key) {
+        if(root == null){
             root = new Node<T>();
             root.setValue(key);
-        } else {
-        insertNode(key, (Node<T>) root);
-        }
 
+
+        }else{
+      
+        InsertNode(key ,(Node<T>)root);
+        }
         numberOfNodes++;
      }
 
-    /**
-     * @param main rotated node.
-     */
-    private void rotateRight(final Node<T> main) {
+    private void rotateRight(Node<T> main) {
 
         Node<T> x = (Node<T>) main.getLeftChild();
         Node<T> y = (Node<T>) x.getRightChild();
         Node<T> p = (Node<T>) main.getParent();
-        if (p == null) {
-            root = x;
-        } else {
-            p.setNewChild(main, x);
+        if(p == null){
+            root = x ;
+        }else {
+            p.setNewChild(main , x);
         }
         x.setParent(p);
         x.setRight(main);
         main.setParent(x);
         main.setLeft(y);
-        if (y != null) {
+        if(y != null) {
             y.setParent(main);
         }
         SetNewHeight(main);
@@ -67,73 +51,59 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
 
     }
 
-    /**
-     * @param key value inserted.
-     * @param startNode root at first.then the root of the su
-     * tree.
-     */
-    private void insertNode(final T key, final Node<T> startNode) {
+    private void InsertNode(T key ,Node<T> startNode) {
 
 
         int compare = key.compareTo(startNode.getValue());
-        if (compare <= 0) {
-            if (startNode.getLeftChild() == null) {
+        if( compare < 0){
+            if(startNode.getLeftChild() == null){
                 Node<T> newNode = new Node<T>();
                 newNode.setValue(key);
                 startNode.setLeft(newNode);
                 newNode.setParent(startNode);
 
-            } else {
-            	insertNode(key,
-            			(Node<T>) startNode.getLeftChild());
             }
+            else
+            InsertNode(key , (Node<T>) startNode.getLeftChild());
 
-        } else if (compare > 0) {
-            if (startNode.getRightChild() == null) {
+        }else {
+            if(startNode.getRightChild() == null){
                 Node<T> newNode = new Node<T>();
                 newNode.setValue(key);
                 startNode.setRight(newNode);
                 newNode.setParent(startNode);
-            } else {
-            	insertNode(key,
-            			(Node<T>)startNode.getRightChild());
-			}
+            }
+            else
+            InsertNode(key , (Node<T>) startNode.getRightChild());
         }
 
        SetNewHeight(startNode);
-        if (isBalanced(startNode)) {
+        if(!isBalanced(startNode)){
             Rotate(startNode);
         }
 
     }
 
-    /**
-     * @param node update the new height
-     */
-    private void SetNewHeight(final Node<T> node) {
+    private void SetNewHeight(Node<T> node) {
 
         int rightChildHeight = -1;
         int leftChildHeight = -1;
-        if (node.getRightChild() != null) {
-            rightChildHeight = ((Node<T>) node.getRightChild()).getHeight();
+        if(node.getRightChild() != null){
+            rightChildHeight = ((Node<T>)node.getRightChild()).getHeight();
         }
-        if (node.getLeftChild() != null) {
-            leftChildHeight = ((Node<T>) node.getLeftChild()).getHeight();
+        if(node.getLeftChild() != null){
+            leftChildHeight = ((Node<T>)node.getLeftChild()).getHeight();
         }
-        int nodeHeight = Math.max(rightChildHeight
+        int NodeHeight = Math.max(rightChildHeight
                 ,leftChildHeight );
-        node.setHeight(nodeHeight + 1);
+        node.setHeight(NodeHeight + 1);
     }
-    /**
-     * 
-     * @param wantedNode
-     */
     private void DeletedBalance(Node<T> wantedNode) {
 
         while (wantedNode != null){
 
             SetNewHeight(wantedNode);
-            if (!isBalanced(wantedNode)) {
+            if(!isBalanced(wantedNode)){
                 Rotate(wantedNode);
             }
             wantedNode = (Node<T>) wantedNode.getParent();
@@ -142,37 +112,31 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
 
     }
 
-    /**
-     * @param node rotation root.
-     */
-    private void Rotate(final Node<T> node) {
+
+    private void Rotate(Node<T> node) {
         int rightChildHeight = -1;
         int leftChildHeight = -1;
-        if (node.getRightChild() != null){
-            rightChildHeight = ((Node<T>)
-            		node.getRightChild()).getHeight();
+        if(node.getRightChild() != null){
+            rightChildHeight = ((Node<T>)node.getRightChild()).getHeight();
         }
-        if (node.getLeftChild() != null){
-            leftChildHeight = ((Node<T>)
-            		node.getLeftChild()).getHeight();
+        if(node.getLeftChild() != null){
+            leftChildHeight = ((Node<T>)node.getLeftChild()).getHeight();
         }
-        int comparison =  leftChildHeight - rightChildHeight;
-        if (comparison > 0) {
+        int comparison =  leftChildHeight - rightChildHeight ;
+        if(comparison > 0 ){
             Node<T> nodeLeft = (Node<T>) node.getLeftChild();
             rightChildHeight = -1;
             leftChildHeight = -1;
-            if (nodeLeft.getRightChild() != null) {
-                rightChildHeight = ((Node<T>)
-                		nodeLeft.getRightChild()).getHeight();
+            if(nodeLeft.getRightChild() != null){
+                rightChildHeight = ((Node<T>)nodeLeft.getRightChild()).getHeight();
             }
-            if (nodeLeft.getLeftChild() != null) {
-                leftChildHeight = ((Node<T>)
-                		nodeLeft.getLeftChild()).getHeight();
+            if(nodeLeft.getLeftChild() != null){
+                leftChildHeight = ((Node<T>)nodeLeft.getLeftChild()).getHeight();
             }
-            int compare  = leftChildHeight - rightChildHeight;
-           if (compare > 0) {
+            int compare  = leftChildHeight - rightChildHeight ;
+           if(compare > 0) {
                rotateRight(node);
-           } else {
+           }else {
               rotateLeft(nodeLeft);
               rotateRight(node);
            }
@@ -198,7 +162,7 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
 
     }
 
-    private boolean isBalanced (final Node<T> node){
+    private boolean isBalanced (Node<T> node){
         int rightChildHeight = -1;
         int leftChildHeight = -1;
         if(node.getRightChild() != null){
@@ -212,7 +176,7 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
     }
 
 
-    private Node<T> searchNode (final T key, final Node<T> starPoint) {
+    private Node<T> searchNode (T key, Node<T> starPoint) {
     	if(starPoint == null) {
     		return null;
     	}
@@ -236,7 +200,7 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
 
 
     @Override
-	public final boolean delete(final T key) {
+    public boolean delete(T key) {
 
 
         Node<T> node = new Node<T>();
@@ -273,59 +237,51 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
         }
         return false;
     }
-    /**
-     * @param n the root of the rotated subtree.
-     */
-    public final void rotateLeft(final Node<T> n) {
+    public void rotateLeft(Node<T> n) {
         Node<T> r = (Node<T>) n.getRightChild();
         Node<T> p = (Node<T>) n.getParent();
         Node<T> l = (Node<T>) r.getLeftChild();
-        if (p == null) {
-            root = r;
-        } else {
-            p.setNewChild(n, r);
+        if(p == null){
+            root = r ;
+        }
+        else {
+            p.setNewChild(n , r);
         }
         r.setParent(p);
         r.setLeft(n);
         n.setParent(r);
         n.setRight(l);
-        if (l != null) {
+        if(l != null){
             l.setParent(n);
         }
         SetNewHeight(n);
         SetNewHeight(r);
+        
     }
 
-    /**
-     * @return size.
-     */
-        public final int size() {
+        public int size() {
         return numberOfNodes;
     }
-        /**
-         * @param node input.
-         */
-    private void swap(final Node<T> node) {
+    private void swap (Node<T> node) {
 
-        Node<T> wantedNode = new Node<T>();
-        if (node.hasLeftChild()) {
+        Node<T> wantedNode = new Node<T>() ;
+        if(node.hasLeftChild()) {
 
             wantedNode = (Node<T>) node.getLeftChild();
-            while (wantedNode.hasRightChild()) {
+            while(wantedNode.hasRightChild()){
                 wantedNode = (Node<T>) wantedNode.getRightChild();
             }
 
-            ((Node<T>) wantedNode.getParent()).setNewChild(wantedNode,
-            		(Node<T>) wantedNode.getLeftChild());
+            ((Node<T>)wantedNode.getParent()).setNewChild(wantedNode , (Node<T>) wantedNode.getLeftChild());
 
-        } else if (node.hasRightChild()) {
+        }else if(node.hasRightChild()) {
 
             wantedNode = (Node<T>) node.getRightChild();
-            while (wantedNode.hasLeftChild()) {
+            while(wantedNode.hasLeftChild()){
                 wantedNode = (Node<T>) wantedNode.getLeftChild();
             }
 
-            ((Node<T>) wantedNode.getParent()).setNewChild(wantedNode, null);
+            ((Node<T>)wantedNode.getParent()).setNewChild(wantedNode , null);
 
         }
         node.setValue(wantedNode.getValue());
@@ -337,7 +293,7 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
 
 
     @Override
-	public final boolean search(final T key) {
+    public boolean search(T key) {
       if(searchNode(key , (Node<T>) root) == null){
           return false;
       }
@@ -345,7 +301,7 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
     }
 
     @Override
-	public final int height() {
+    public int height() {
         if(root == null){
             return 0 ;
         }
@@ -353,7 +309,7 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
     }
 
     @Override
-	public final INode<T> getTree() {
+    public INode<T> getTree() {
         return root;
     }
 }
