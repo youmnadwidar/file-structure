@@ -6,39 +6,58 @@ import eg.edu.alexu.csd.filestructure.avl.INode;
 /**
  * Created by HP on 3/12/2018.
  */
+/**
+ * @author HP.
+ *
+ * @param <T> in .
+ */
 public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
 
-    private INode<T> root ;
-    private int numberOfNodes ;
+     /**
+      * * Root of the avl tree.
+      */
+    private INode<T> root;
+    /**
+     * number of nodes in an avl tree.
+     */
+    private int numberOfNodes;
 
 
 
+    /**
+     * Insert the given value using the key
+     * @param key the value to be inserted in the tree
+     */
     @Override
-	public final void insert(final T key) {
-        if(root == null){
+    public final void insert(final T key) {
+        if (root == null) {
             root = new Node<T>();
             root.setValue(key);
-        }else
-        InsertNode(key ,(Node<T>)root);
+        } else {
+        insertNode(key, (Node<T>) root);
+        }
 
         numberOfNodes++;
      }
 
+    /**
+     * @param main rotated node.
+     */
     private void rotateRight(final Node<T> main) {
 
         Node<T> x = (Node<T>) main.getLeftChild();
         Node<T> y = (Node<T>) x.getRightChild();
         Node<T> p = (Node<T>) main.getParent();
-        if(p == null){
-            root = x ;
-        }else {
-            p.setNewChild(main , x);
+        if (p == null) {
+            root = x;
+        } else {
+            p.setNewChild(main, x);
         }
         x.setParent(p);
         x.setRight(main);
         main.setParent(x);
         main.setLeft(y);
-        if(y != null) {
+        if (y != null) {
             y.setParent(main);
         }
         SetNewHeight(main);
@@ -48,53 +67,62 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
 
     }
 
-    private void InsertNode(final T key ,final Node<T> startNode) {
+    /**
+     * @param key value inserted.
+     * @param startNode root at first.then the root of the su
+     * tree.
+     */
+    private void insertNode(final T key, final Node<T> startNode) {
 
 
         int compare = key.compareTo(startNode.getValue());
-        if( compare <= 0){
-            if(startNode.getLeftChild() == null){
+        if (compare <= 0) {
+            if (startNode.getLeftChild() == null) {
                 Node<T> newNode = new Node<T>();
                 newNode.setValue(key);
                 startNode.setLeft(newNode);
                 newNode.setParent(startNode);
 
             } else {
-				InsertNode(key , (Node<T>) startNode.getLeftChild());
-			}
+            	insertNode(key,
+            			(Node<T>) startNode.getLeftChild());
+            }
 
-        }else if(compare > 0 ){
-            if(startNode.getRightChild() == null){
+        } else if (compare > 0) {
+            if (startNode.getRightChild() == null) {
                 Node<T> newNode = new Node<T>();
                 newNode.setValue(key);
                 startNode.setRight(newNode);
                 newNode.setParent(startNode);
             } else {
-				InsertNode(key , (Node<T>)
-						startNode.getRightChild());
+            	insertNode(key,
+            			(Node<T>)startNode.getRightChild());
 			}
         }
 
        SetNewHeight(startNode);
-        if(!isBalanced(startNode)){
+        if (isBalanced(startNode)) {
             Rotate(startNode);
         }
 
     }
 
+    /**
+     * @param node update the new height
+     */
     private void SetNewHeight(final Node<T> node) {
 
         int rightChildHeight = -1;
         int leftChildHeight = -1;
-        if(node.getRightChild() != null){
-            rightChildHeight = ((Node<T>)node.getRightChild()).getHeight();
+        if (node.getRightChild() != null) {
+            rightChildHeight = ((Node<T>) node.getRightChild()).getHeight();
         }
-        if(node.getLeftChild() != null){
-            leftChildHeight = ((Node<T>)node.getLeftChild()).getHeight();
+        if (node.getLeftChild() != null) {
+            leftChildHeight = ((Node<T>) node.getLeftChild()).getHeight();
         }
-        int NodeHeight = Math.max(rightChildHeight
+        int nodeHeight = Math.max(rightChildHeight
                 ,leftChildHeight );
-        node.setHeight(NodeHeight + 1);
+        node.setHeight(nodeHeight + 1);
     }
     /**
      * 
