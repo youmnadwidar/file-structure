@@ -37,7 +37,7 @@ public class Dictionary implements IDictionary {
 
     @Override
     public boolean insert(String word) {
-        if (tree.search(word)) {
+        if (this.exists(word)) {
             return false;
         }
         tree.insert(word);
