@@ -7,17 +7,20 @@ import eg.edu.alexu.csd.filestructure.avl.INode;
  * Created by HP on 3/12/2018.
  */
 public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
-
+    /**
+     * root of the avl tree.
+     */
     private INode<T> root;
+    /**
+     * number of elements in the tree.
+     */
     private int numberOfNodes;
 
 
     /**
      * Insert the given value using the key.
-     *
      * @param key the value to be inserted in the tree
      */
-
     @Override
     public void insert(T key) {
         if (root == null) {
@@ -32,7 +35,7 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
     }
 
     /**
-     * @param main rotated subtree
+     * @param main rotated subtree.
      */
     private void rotateRight(Node<T> main) {
 
@@ -105,6 +108,10 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
         node.setHeight(NodeHeight + 1);
     }
 
+    /**
+     * delete backtracking.
+     * @param wantedNode to be deleted.
+     */
     private void DeletedBalance(Node<T> wantedNode) {
 
         while (wantedNode != null) {
@@ -213,8 +220,6 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
         Node<T> node = new Node<T>();
 
         node = searchNode(key, (Node<T>) root);
-
-
         if (node != null) {
             if (numberOfNodes == 1) {
                 root = null;
@@ -298,6 +303,11 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
     }
 
 
+    /**
+     * Search for a specific element using the key in the tree
+     * @param key the key of the node
+     * @return true if the key exists, false otherwise
+     */
     @Override
     public boolean search(T key) {
         if (searchNode(key, (Node<T>) root) == null) {
@@ -306,6 +316,11 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
         return true;
     }
 
+    /**
+     * Return the height of the AVL tree. This is the longest path from
+     * the root to a leaf-node
+     * @return tree height
+     */
     @Override
     public int height() {
         if (root == null) {
@@ -314,6 +329,10 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
         return ((Node<T>) root).getHeight() + 1;
     }
 
+    /**
+     * Return the root of your AVL tree.
+     * @return root of the AVL tree.
+     */
     @Override
     public INode<T> getTree() {
         return root;
