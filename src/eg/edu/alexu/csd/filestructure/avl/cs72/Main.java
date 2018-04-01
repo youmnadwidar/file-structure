@@ -9,7 +9,7 @@ public class Main {
         AvlTree tree = new AvlTree();
 
         for (int i = 1; i <  1000; ++i)
-        tree.insert(i);
+            tree.insert(1);
         System.out.println(tree.height());
 
     }

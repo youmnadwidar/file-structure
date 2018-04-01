@@ -23,15 +23,7 @@ public class Node<T extends Comparable<T>> implements INode<T> {
      * . parent .
      */	private INode<T> parent;
 
-     private int height ;
-
-     int getHeight (){
-        return  height ;
-     }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
+    private int height;
 
     public Node() {
         leftChild = null;
@@ -39,18 +31,20 @@ public class Node<T extends Comparable<T>> implements INode<T> {
         height = 0 ;
     }
 
+    int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     public boolean hasLeftChild (){
-        if (this.getLeftChild() == null) {
-            return false;
-        }
-        return true;
+        return this.getLeftChild() != null;
     }
 
     public boolean hasRightChild (){
-        if (this.getRightChild() == null) {
-            return false;
-        }
-        return true;
+        return this.getRightChild() != null;
     }
 
     public final void setLeft(final Node<T> left) {
@@ -73,7 +67,7 @@ public class Node<T extends Comparable<T>> implements INode<T> {
 
 
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public final T getValue() {
         return  (T) value;
     }
@@ -88,22 +82,23 @@ public class Node<T extends Comparable<T>> implements INode<T> {
         return parent;
     }
 
+    public void setParent(INode<T> parent) {
+        this.parent = parent;
+    }
+
     public void setNewChild (Node<T> old , Node<T> newNode) {
 
         if (getLeftChild() == (old)) {
             setLeft(newNode);
             if(newNode != null) {
-            	newNode.setParent(this);
+                newNode.setParent(this);
             }
-            
+
         } else {
             setRight(newNode);
             if(newNode != null) {
-            	newNode.setParent(this);
+                newNode.setParent(this);
             }
         }
-    }
-    public void setParent(INode<T> parent) {
-        this.parent = parent;
     }
 }

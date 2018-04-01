@@ -1,6 +1,5 @@
 package eg.edu.alexu.csd.filestructure.avl.cs72;
 
-
 import eg.edu.alexu.csd.filestructure.avl.IDictionary;
 
 import java.io.*;
@@ -23,7 +22,7 @@ public class Dictionary implements IDictionary {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             while ((line = bufferedReader.readLine()) != null) {
-                this.insert(line);
+                tree.insert(line);
             }
 
             bufferedReader.close();
@@ -51,9 +50,11 @@ public class Dictionary implements IDictionary {
 
     @Override
     public boolean delete(String word) {
-
-        return tree.delete(word);
-
+        if (this.exists(word)) {
+            tree.delete(word);
+            return true;
+        }
+        return false;
     }
 
     @Override
