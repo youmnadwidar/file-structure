@@ -7,12 +7,21 @@ import eg.edu.alexu.csd.filestructure.avl.INode;
  * Created by HP on 3/12/2018.
  */
 public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
-
+    /**
+     * root of the avl tree.
+     */
     private INode<T> root;
+    /**
+     * number of elements in the tree.
+     */
     private int numberOfNodes;
 
 
-
+    /**
+     * Insert the given value using the key.
+     *
+     * @param key the value to be inserted in the tree
+     */
     @Override
     public void insert(T key) {
         if (root == null) {
@@ -20,14 +29,15 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
             root.setValue(key);
 
 
-        } else if (this.search(key)) {
-            return;
+        } else {
+            insertNode(key, (Node<T>) root);
         }
-        InsertNode(key, (Node<T>) root);
-
         numberOfNodes++;
     }
 
+    /**
+     * @param main rotated subtree.
+     */
     private void rotateRight(Node<T> main) {
 
         Node<T> x = (Node<T>) main.getLeftChild();
@@ -45,16 +55,17 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
         if (y != null) {
             y.setParent(main);
         }
-        SetNewHeight(main);
-        SetNewHeight(x);
-
+        setNewHeight(main);
+        setNewHeight(x);
 
 
     }
 
-    private void InsertNode(T key, Node<T> startNode) {
-
-
+    /**
+     * @param key       to be found.
+     * @param startNode the root of the subtree
+     */
+    private void insertNode(T key, Node<T> startNode) {
         int compare = key.compareTo(startNode.getValue());
         if (compare < 0) {
             if (startNode.getLeftChild() == null) {
@@ -63,27 +74,27 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
                 startNode.setLeft(newNode);
                 newNode.setParent(startNode);
 
-            } else
-                InsertNode(key, (Node<T>) startNode.getLeftChild());
-
-        } else if (compare > 0) {
+            } else {
+                insertNode(key, (Node<T>) startNode.getLeftChild());
+            }
+        } else {
             if (startNode.getRightChild() == null) {
                 Node<T> newNode = new Node<T>();
                 newNode.setValue(key);
                 startNode.setRight(newNode);
                 newNode.setParent(startNode);
             } else
-                InsertNode(key, (Node<T>) startNode.getRightChild());
+                insertNode(key, (Node<T>) startNode.getRightChild());
         }
 
-        SetNewHeight(startNode);
+        setNewHeight(startNode);
         if (!isBalanced(startNode)) {
-            Rotate(startNode);
+            rotate(startNode);
         }
 
     }
 
-    private void SetNewHeight(Node<T> node) {
+    private void setNewHeight(Node<T> node) {
 
         int rightChildHeight = -1;
         int leftChildHeight = -1;
@@ -93,18 +104,23 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
         if (node.getLeftChild() != null) {
             leftChildHeight = ((Node<T>) node.getLeftChild()).getHeight();
         }
-        int NodeHeight = Math.max(rightChildHeight
+        int nodeHeight = Math.max(rightChildHeight
                 , leftChildHeight);
-        node.setHeight(NodeHeight + 1);
+        node.setHeight(nodeHeight + 1);
     }
 
-    private void DeletedBalance(Node<T> wantedNode) {
+    /**
+     * delete backtracking.
+     *
+     * @param wantedNode to be deleted.
+     */
+    private void deletedBalance(Node<T> wantedNode) {
 
         while (wantedNode != null) {
 
-            SetNewHeight(wantedNode);
+            setNewHeight(wantedNode);
             if (!isBalanced(wantedNode)) {
-                Rotate(wantedNode);
+                rotate(wantedNode);
             }
             wantedNode = (Node<T>) wantedNode.getParent();
         }
@@ -113,7 +129,7 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
     }
 
 
-    private void Rotate(Node<T> node) {
+    private void rotate(Node<T> node) {
         int rightChildHeight = -1;
         int leftChildHeight = -1;
         if (node.getRightChild() != null) {
@@ -206,8 +222,6 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
         Node<T> node = new Node<T>();
 
         node = searchNode(key, (Node<T>) root);
-
-
         if (node != null) {
             if (numberOfNodes == 1) {
                 root = null;
@@ -219,11 +233,11 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
                 if (parentNode.hasLeftChild() &&
                         parentNode.getLeftChild().getValue().equals(key)) {
                     parentNode.setLeft(null);
-                    DeletedBalance(parentNode);
+                    deletedBalance(parentNode);
                 } else if (parentNode.hasRightChild() &&
                         parentNode.getRightChild().getValue().equals(key)) {
                     parentNode.setRight(null);
-                    DeletedBalance(parentNode);
+                    deletedBalance(parentNode);
 
                 }
 
@@ -236,6 +250,7 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
         }
         return false;
     }
+
     public void rotateLeft(Node<T> n) {
         Node<T> r = (Node<T>) n.getRightChild();
         Node<T> p = (Node<T>) n.getParent();
@@ -252,8 +267,8 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
         if (l != null) {
             l.setParent(n);
         }
-        SetNewHeight(n);
-        SetNewHeight(r);
+        setNewHeight(n);
+        setNewHeight(r);
 
     }
 
@@ -284,18 +299,27 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
 
         }
         node.setValue(wantedNode.getValue());
-        DeletedBalance((Node<T>) wantedNode.getParent());
+        deletedBalance((Node<T>) wantedNode.getParent());
 
 
     }
 
 
-
+    /**
+     * Search for a specific element using the key in the tree
+     * @param key the key of the node
+     * @return true if the key exists, false otherwise
+     */
     @Override
     public boolean search(T key) {
         return searchNode(key, (Node<T>) root) != null;
     }
 
+    /**
+     * Return the height of the AVL tree. This is the longest path from
+     * the root to a leaf-node
+     * @return tree height
+     */
     @Override
     public int height() {
         if (root == null) {
@@ -304,6 +328,10 @@ public class AvlTree<T extends Comparable<T>> implements IAVLTree<T> {
         return ((Node<T>) root).getHeight() + 1;
     }
 
+    /**
+     * Return the root of your AVL tree.
+     * @return root of the AVL tree.
+     */
     @Override
     public INode<T> getTree() {
         return root;
