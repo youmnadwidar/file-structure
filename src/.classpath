@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="eg/edu/alexu/csd/filestructure/avl/cs72/" kind="src" path=""/>
+	<classpathentry kind="src" path="eg/edu/alexu/csd/filestructure/avl/cs72"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
